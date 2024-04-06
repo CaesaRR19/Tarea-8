@@ -55,6 +55,10 @@ class EventListState extends State<EventList> {
   }
 
   Future<void> _deleteAllEvents() async {
+    if (!db.isOpen) {
+      await _openDatabase(); // Asegúrate de que esta función puede ser llamada múltiples veces sin efectos adversos
+    }
+
     await db.delete("event");
     setState(() {
       _events = [];

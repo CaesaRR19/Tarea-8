@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
-import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddEvent extends StatefulWidget {
   const AddEvent({super.key});
@@ -16,7 +16,7 @@ class AddEventState extends State<AddEvent> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  String? _photoPath; // Hacer nullable
+  String? _photoPath;
   String? _audioPath;
   FlutterSoundRecorder? _audioRecorder = FlutterSoundRecorder();
 
@@ -87,6 +87,10 @@ class AddEventState extends State<AddEvent> {
   }
 
   Future<void> _initRecorder() async {
+    final status = await Permission.microphone.request();
+    if (status != PermissionStatus.granted) {
+      throw 'Microphone permission not granted';
+    }
     await _audioRecorder?.openRecorder();
   }
 
@@ -105,7 +109,8 @@ class AddEventState extends State<AddEvent> {
       });
     } else {
       await _audioRecorder?.startRecorder(
-          toFile: 'audio_${DateTime.now().millisecondsSinceEpoch}.aac');
+          toFile: 'audio_${DateTime.now().millisecondsSinceEpoch}');
+      setState(() {});
     }
   }
 
@@ -134,10 +139,6 @@ class AddEventState extends State<AddEvent> {
               onPressed: _pickImage,
               child: const Text('Tomar Foto'),
             ),
-            if (_photoPath != null) ...[
-              const SizedBox(height: 20),
-              Image.file(File(_photoPath!)),
-            ],
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _startStopRecording,
