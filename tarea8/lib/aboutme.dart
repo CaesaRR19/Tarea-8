@@ -10,7 +10,7 @@ class AboutMe extends StatelessWidget {
         body: const Center(
             child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16.0), // Agregar Padding aquí
+            padding: EdgeInsets.all(16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

@@ -44,19 +44,15 @@ class EventListState extends State<EventList> {
   }
 
   Future<void> _playAudio(String path) async {
-    try {
-      await soundPlayer.startPlayer(
-        fromURI: path,
-        codec: Codec.aacADTS,
-      );
-    } catch (e) {
-      print("Error al reproducir el audio: $e");
-    }
+    await soundPlayer.startPlayer(
+      fromURI: path,
+      codec: Codec.aacADTS,
+    );
   }
 
   Future<void> _deleteAllEvents() async {
     if (!db.isOpen) {
-      await _openDatabase(); // Asegúrate de que esta función puede ser llamada múltiples veces sin efectos adversos
+      await _openDatabase();
     }
 
     await db.delete("event");
