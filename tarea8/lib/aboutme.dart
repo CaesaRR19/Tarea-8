@@ -23,6 +23,11 @@ class AboutMe extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 35)),
+                SizedBox(height: 20),
+                Text('2022-0022',
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 35)),
                 SizedBox(height: 10),
                 Text(
                   'La democracia se fortalece con la participación activa y consciente de cada ciudadano en las elecciones, ejerciendo el derecho al voto como un acto supremo de servicio cívico.',

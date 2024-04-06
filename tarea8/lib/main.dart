@@ -12,6 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: const TabsControl(),
+        // Esto sirve para esconder la etiqueta de modo de depuración.
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primaryColor: Colors.red,
